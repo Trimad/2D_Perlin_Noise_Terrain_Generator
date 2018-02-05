@@ -1,55 +1,46 @@
-var inc = 0.1;
-var scl = 8;
-var cols, rows;
-
-var modifier = 1.4;
-
-//var debug;
-//var help;
+"use strict"
+let inc = 0.1;
+let scl = 5;
+let cols, rows;
+let modifier = 0;
 
 function setup() {
-
-  //cols = 64;
-  //rows = 64;
+  
+  modifier = random(1, 1.5);
   cols = floor(windowWidth / scl);
   rows = floor(windowHeight / scl);
 
   createCanvas(windowWidth, windowHeight);
   pixelDensity(1);
 
-  var yOff = 0;
-  
-  for (var y = 0; y < rows; y++) {
-    
-    var xOff = 0;
-    
-    for (var x = 0; x < cols; x++) {
+  let yOff = 0;
 
-      var r = noise(xOff, yOff) * 255 / modifier;
+  for (let y = 0; y <= rows; y++) {
+
+    let xOff = 0;
+
+    for (let x = 0; x <= cols; x++) {
+
+      let rand = noise(xOff, yOff) * 255 / modifier;
+
       xOff += inc;
       noStroke();
 
       //Draw grass
-      if (r >= 75) {
-        fill(0, r, 0);
+      if (rand >= 100) {
+        fill(0, rand, 20);
       }
       //Draw sand
-      else if (r < 75 && r > 65) {
-        fill(76, r, 50);
+      else if (rand < 100 && rand > 75) {
+        fill(76, rand, 40);
       }
       //Draw water
-      else if (r <= 65) {
-        fill(0, 0, r);
+      else if (rand <= 75) {
+        fill(0, 0, rand);
       }
       rect(x * scl, y * scl, scl, scl);
     }
     yOff += inc;
   }
 
-  //help = createP(debug);
-}
-
-function draw() {
-  //debug = get(mouseX, mouseY);
-  //help.html(debug);
 }
